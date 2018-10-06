@@ -1,28 +1,51 @@
 #include <iostream>
 
-class Student
+
+
+int **Return()
 {
-	int age;
-public:
-	Student()
+	int **m = new int*[10];
+	for (int i = 0; i < 10; i++)
 	{
-		age = 18;
+		m[i] = new int[10];
 	}
-	void Print()
-	{
-		std::cout << "张浩曼年龄是："<<age<<"岁！" << std::endl;
-	}
-};
+	return m;
+}
 
 int main()
 {
-	Student *Obj;
-	Obj = new Student();
-	Obj->Print();
-	Obj->Print();
+	int **p = Return();
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			p[i][j] = j + 1;
+		}
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			std::cout << p[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
 
+	int Map[10][10] = { 0 };
+	std::cout << "内存拷贝之后！" << std::endl;
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			Map[i][j] = p[i][j];
+			std::cout << Map[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
+
+	int temp = 0;
+	delete[] p;
+	p = NULL;
 	system("pause");
-	delete Obj;
-	Obj = NULL;
 	return 0;
 }
