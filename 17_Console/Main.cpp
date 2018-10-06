@@ -20,7 +20,6 @@ int main()
 	Obj = new Student();
 	Obj->Print();
 
-
 	system("pause");
 	delete Obj;
 	Obj = NULL;
