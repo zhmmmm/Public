@@ -19,7 +19,7 @@ int main()
 	Student *Obj;
 	Obj = new Student();
 	Obj->Print();
-	Obj->Print();
+
 
 	system("pause");
 	delete Obj;
