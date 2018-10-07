@@ -1,51 +1,69 @@
 #include <iostream>
 
-
-
-int **Return()
+int YesReturnValueFunctionCall()
 {
-	int **m = new int*[10];
-	for (int i = 0; i < 10; i++)
-	{
-		m[i] = new int[10];
-	}
-	return m;
+	return 1;
+
+	//int num = 10;
+	//__asm
+	//{
+	//	call F;
+	//	push eax;
+	//	mov num, eax;
+	//	pop eax;
+	//}
+	//std::cout << num << std::endl;
+
+	//int num = 0;
+	//__asm
+	//{
+	//	xor eax, eax;
+	//	call YesReturnValueFunctionCall;
+	//	push eax;
+	//	mov num, eax;
+	//	pop eax;
+	//}
+	//std::cout << num << std::endl;
+}
+
+void ParameterFunction(const char *num)
+{
+	printf(num);
+	//const char num[] = "123\n";
+	//__asm
+	//{
+	//	mov eax, offset num;
+	//	push eax;
+	//	call ParameterFunction;
+	//	pop ebx;
+	//}
+
+}
+
+void ordinaryAdd()
+{
+	//int num = 1;
+	//int num2 = 234;
+	//__asm
+	//{
+	//	push eax;
+	//	push ebx;
+	//	mov eax, num;
+	//	mov ebx, num2;
+	//	add eax, ebx;
+	//	mov num, eax;
+	//	mov num2, ebx;
+	//	pop eax;
+	//	pop ebx;
+	//}
+	//std::cout << num << std::endl;
 }
 
 int main()
 {
-	int **p = Return();
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			p[i][j] = j + 1;
-		}
-	}
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			std::cout << p[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
 
-	int Map[10][10] = { 0 };
-	std::cout << "ÄÚ´æ¿½±´Ö®ºó£¡" << std::endl;
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			Map[i][j] = p[i][j];
-			std::cout << Map[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
 
-	int temp = 0;
-	delete[] p;
-	p = NULL;
+
 	system("pause");
 	return 0;
 }
