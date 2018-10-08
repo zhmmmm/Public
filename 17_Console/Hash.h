@@ -64,7 +64,9 @@ public:
 				//得到数据
 				m_Hash[i]._Data = new PAIR[m_Hash[i]._Capacity];
 				for (int j = 0; j < m_Hash[i]._Size; ++j)
+				{
 					m_Hash[i]._Data[j] = that.m_Hash[i]._Data[j];
+				}
 			}
 		}
 	}
@@ -89,7 +91,9 @@ public:
 			for (int i = 0; i < m_Capacity; ++i)
 			{
 				if (that.m_Hash[i]._Capacity == 0)
+				{
 					m_Hash[i]._Capacity = 0;
+				}
 				else
 				{
 					//得到容量
@@ -101,7 +105,9 @@ public:
 					//得到数据
 					m_Hash[i]._Data = new PAIR[m_Hash[i]._Capacity];
 					for (int j = 0; j < m_Hash[i]._Size; ++j)
+					{
 						m_Hash[i]._Data[j] = that.m_Hash[i]._Data[j];
+					}
 				}
 			}
 		}
@@ -135,12 +141,18 @@ public:
 			{
 				int half = (begin + end) / 2;
 				if (key < m_Hash[Index]._Data[half].Key)
+				{
 					end = half - 1;
+				}
 				else if (m_Hash[Index]._Data[half].Key < key)
+				{
 					begin = half + 1;
+				}
 				else
+				{
 					//不能放入相同的KEY
 					return false;
+				}
 			}
 
 			//扩容
@@ -149,7 +161,9 @@ public:
 				m_Hash[Index]._Capacity *= 2;
 				PAIR* p = new PAIR[m_Hash[Index]._Capacity];
 				for (int i = 0; i < m_Hash[Index]._Size; ++i)
+				{
 					p[i] = m_Hash[Index]._Data[i];
+				}
 				delete[] m_Hash[Index]._Data;
 				m_Hash[Index]._Data = p;
 			}
@@ -159,8 +173,9 @@ public:
 			//为了给我们要插入的数据挪位置
 			int m = m_Hash[Index]._Size - begin;
 			for (int i = 0; i < m; ++i)
+			{
 				m_Hash[Index]._Data[m_Hash[Index]._Size - i] = m_Hash[Index]._Data[m_Hash[Index]._Size - 1 - i];
-
+			}
 			m_Hash[Index]._Data[begin].Key = key;
 			m_Hash[Index]._Data[begin].Data = data;
 			m_Hash[Index]._Size += 1;
@@ -200,7 +215,9 @@ public:
 
 		//如果该下标上的顺序表为空则不存在该键值对
 		if (m_Hash[Index]._Capacity == 0)
+		{
 			return 0;
+		}
 
 		//存在顺序表然后进行折半查找
 		int begin = 0, end = m_Hash[Index]._Size - 1;
@@ -208,11 +225,17 @@ public:
 		{
 			int half = (begin + end) / 2;
 			if (key < m_Hash[Index]._Data[half].Key)
+			{
 				end = half - 1;
+			}
 			else if (m_Hash[Index]._Data[half].Key < key)
+			{
 				begin = half + 1;
+			}
 			else
+			{
 				return &m_Hash[Index]._Data[half];
+			}
 		}
 		return NULL;
 	}
@@ -224,7 +247,9 @@ public:
 
 		//如果该下标上的顺序表为空则不存在该键值对
 		if (m_Hash[Index]._Capacity == 0)
+		{
 			return false;
+		}
 
 		//存在顺序表然后进行折半查找
 		int begin = 0, end = m_Hash[Index]._Size - 1;
@@ -232,15 +257,21 @@ public:
 		{
 			int half = (begin + end) / 2;
 			if (key < m_Hash[Index]._Data[half].Key)
+			{
 				end = half - 1;
+			}
 			else if (m_Hash[Index]._Data[half].Key < key)
+			{
 				begin = half + 1;
+			}
 			else
 			{
 				//从顺序表中删除键值对
 				int m = m_Hash[Index]._Size - half - 1;
 				for (int i = 0; i < m; ++i)
+				{
 					m_Hash[Index]._Data[half + i] = m_Hash[Index]._Data[half + 1 + i];
+				}
 				m_Hash[Index]._Size -= 1;
 				m_Size -= 1;
 
