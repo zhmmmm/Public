@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 int YesReturnValueFunctionCall()
 {
 	return 1;
@@ -59,10 +60,35 @@ void ordinaryAdd()
 	//std::cout << num << std::endl;
 }
 
+int find_half(int* p, int len, int data)
+{
+	int Temp = 0;
+	int e = len - 1;
+	while (Temp <= e)
+	{
+		int TempLen = (Temp + e) / 2;
+		if (data < p[TempLen])
+		{
+			e = TempLen - 1;
+		}
+		else if (p[TempLen] < data)
+		{
+			Temp = TempLen + 1;
+		}
+		else
+		{
+			return TempLen;
+		}
+	}
+	return -1;
+}
+
+
 int main()
 {
 
-
+	int Temp = 100;
+	std::cout << (Temp << 2) << std::endl;
 
 	system("pause");
 	return 0;
