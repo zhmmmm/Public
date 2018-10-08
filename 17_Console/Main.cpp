@@ -1,5 +1,7 @@
 #include <iostream>
+#include "Hash.h"
 
+using namespace std;
 
 int YesReturnValueFunctionCall()
 {
@@ -83,12 +85,42 @@ int find_half(int* p, int len, int data)
 	return -1;
 }
 
+bool operator < (const std::string& s1, const std::string& s2)
+{
+	if (strcmp(s1.c_str(), s2.c_str()) < 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+int hashfunc(const std::string& key)
+{
+	return (key[0] + key[key.length() - 1]);
+	//hash函数的原则：
+	//1、尽量简单
+	//2、结果尽量离散
+	//3、冲突尽量少
+}
 
 int main()
 {
 
-	int Temp = 100;
-	std::cout << (Temp << 2) << std::endl;
+	Hash<std::string, int> aaa(256, hashfunc);
+	aaa.Insert("123", 123);
+	aaa.Insert("456", 456);
+	aaa.Insert("abc", 789);
+	aaa.Insert("def", 101112);
+	aaa.Insert("bbb", 131415);
+	aaa.Insert("xyz", 161718);
+	aaa.Insert("qwe", 192021);
+	aaa.Insert("ijk", 222324);
+	aaa["666"] = 999;
+
+
+	Hash<std::string, int>::LPAIR it = aaa.Find("123");
+	cout << "(" << it->Key.c_str() << "," << it->Data << ")" << endl;
+	cout << aaa["666"] << endl;
 
 	system("pause");
 	return 0;
