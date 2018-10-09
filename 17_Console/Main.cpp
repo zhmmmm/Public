@@ -138,7 +138,6 @@ void RootFirst(TREENODE& t)
 		RootFirst(t.child[i]);
 	}
 }
-
 //后根遍历
 void RootAfter(TREENODE& t)
 {
@@ -148,7 +147,6 @@ void RootAfter(TREENODE& t)
 	}
 	cout << t.data << " ";
 }
-
 //层序遍历
 void LayerView(TREENODE& t)
 {
@@ -169,7 +167,6 @@ void LayerView(TREENODE& t)
 		helplist.pop_front();
 	}
 }
-
 //求树的大小
 int SizeOfTree(TREENODE& t, int& num)
 {
@@ -180,7 +177,6 @@ int SizeOfTree(TREENODE& t, int& num)
 	}
 	return num;
 }
-
 //求树的高度
 int HeightOfTree(TREENODE& t, int deep = 0)
 {
@@ -196,69 +192,211 @@ int HeightOfTree(TREENODE& t, int deep = 0)
 	}
 	return n;
 }
+/*
+	//TREENODE A;
+	//A.data = 'A';
+	//TREENODE temp;
+	//A.child.push_back(temp);
+	//A.child.push_back(temp);
+	//A.child.push_back(temp);
+	//A.child.push_back(temp);
+	//A.child[0].data = 'B';
+	//A.child[1].data = 'C';
+	//A.child[2].data = 'D';
+	//A.child[3].data = 'E';
 
+	//TREENODE& C = A.child[1];
+	//C.child.push_back(temp);
+	//C.child[0].data = 'F';
+
+	//TREENODE& F = C.child[0];
+	//F.child.push_back(temp);
+	//F.child.push_back(temp);
+	//F.child[0].data = 'J';
+	//F.child[1].data = 'K';
+
+	//TREENODE& D = A.child[2];
+	//D.child.push_back(temp);
+	//D.child[0].data = 'G';
+
+	//TREENODE& E = A.child[3];
+	//E.child.push_back(temp);
+	//E.child.push_back(temp);
+	//E.child[0].data = 'H';
+	//E.child[1].data = 'I';
+
+	//TREENODE& I = E.child[1];
+	//I.child.push_back(temp);
+	//I.child.push_back(temp);
+	//I.child.push_back(temp);
+	//I.child[0].data = 'L';
+	//I.child[1].data = 'M';
+	//I.child[2].data = 'N';
+
+
+	//cout << "先根遍历树A结果：" << endl;
+	//RootFirst(A);
+	//cout << endl << "后根遍历树A结果：" << endl;
+	//RootAfter(A);
+	//cout << endl;
+
+	//cout << "层序遍历树A结果：" << endl;
+	//LayerView(A);
+	//cout << endl;
+
+	//int num = 0;
+	//cout << "求树A的大小结果：" << SizeOfTree(A, num) << endl;
+
+
+	//cout << HeightOfTree(A) << endl;
+	//cout << HeightOfTree(A.child[0]) << endl;
+	//cout << HeightOfTree(C) << endl;
+*/
+//===============================
+#define DATA_INT int
+typedef struct _node
+{
+	int           data; //数据
+	_node   *Next; //下一个
+}NODE, *LPNODE;
+class myclass
+{
+private:
+	int num;
+	LPNODE head;
+public:
+	myclass()//构造
+	{
+		head = NULL;
+		num = 0;
+	}
+	void copyfunction(const myclass &data) //拷贝函数
+	{
+		LPNODE datahead = data.head;
+		LPNODE temp = head;
+		while (datahead)
+		{
+			LPNODE tempnode = new NODE;
+			tempnode->data = datahead->data;
+			tempnode->Next = NULL;
+			if (temp == NULL)
+			{
+				temp = head = tempnode;
+			}
+			else
+			{
+				datahead = datahead->Next;
+				temp = temp->Next;
+			}
+			temp->Next = tempnode;
+		}
+		num = data.num;
+	}
+	myclass(const myclass &data) //拷贝构造
+	{
+		copyfunction(data);
+	}
+	myclass &operator = (const myclass &data) //同类赋值
+	{
+		if (&data != this)
+		{
+			clearfunction();
+			copyfunction(data);
+		}
+		return *this;
+	}
+
+	void pushHead(const DATA_INT &data) //添加在头部
+	{
+		LPNODE tempnode = new NODE; //新的节点
+		tempnode->data = data;
+		tempnode->Next = head;
+		head = tempnode;
+		num++;
+	}
+	void pushend(const DATA_INT &data) //添加在尾部
+	{
+		LPNODE temp = head;
+		LPNODE tempnode = new NODE; //新的节点
+		tempnode->data = data;
+		tempnode->Next = NULL;
+
+		if (temp = NULL)
+		{
+			tempnode->Next = head;
+			head = tempnode;
+		}
+		else
+		{
+			while (temp->Next)
+			{
+				temp = temp->Next;
+			}
+			temp->Next = tempnode;
+		}
+		num++;
+	}
+	void insert(int pos, const DATA_INT &data)
+	{
+		if (pos >= num) { pushend(data); return; }
+		LPNODE tempnode = NULL; //当前的前一个节点
+		LPNODE temp2node = head; //要插入位置的节点
+
+		LPNODE newnode = new NODE; //新的要插入的节点
+		newnode->data = data;
+		newnode->Next = NULL;
+		for (int i = 0; i < pos; ++i)
+		{
+			if (tempnode == NULL)
+			{
+				tempnode = head;
+			}
+			else
+			{
+				tempnode = tempnode->Next;
+			}
+			temp2node = tempnode->Next;
+		}
+		newnode->Next = temp2node;
+		if (tempnode == NULL)
+		{
+			head = newnode;
+		}
+		else
+		{
+			tempnode->Next = newnode;
+		}
+	}
+	void function(const myclass &data)
+	{
+		std::cout << data.num << std::endl;
+		std::cout << data.head->data << std::endl;
+	}
+
+	void clearfunction()//释放函数
+	{
+		if (head)
+		{
+			LPNODE temp = head;
+			while (head)//当前有值
+			{
+				head = head->Next;//下一个的整个
+				delete temp; //删除head
+				temp = head;//下一个的整个
+			}
+		}
+		num = 0;
+	}
+	~myclass()//析构
+	{
+		clearfunction();
+	}
+};
 
 int main()
 {
 
-	TREENODE A;
-	A.data = 'A';
-	TREENODE temp;
-	A.child.push_back(temp);
-	A.child.push_back(temp);
-	A.child.push_back(temp);
-	A.child.push_back(temp);
-	A.child[0].data = 'B';
-	A.child[1].data = 'C';
-	A.child[2].data = 'D';
-	A.child[3].data = 'E';
 
-	TREENODE& C = A.child[1];
-	C.child.push_back(temp);
-	C.child[0].data = 'F';
-
-	TREENODE& F = C.child[0];
-	F.child.push_back(temp);
-	F.child.push_back(temp);
-	F.child[0].data = 'J';
-	F.child[1].data = 'K';
-
-	TREENODE& D = A.child[2];
-	D.child.push_back(temp);
-	D.child[0].data = 'G';
-
-	TREENODE& E = A.child[3];
-	E.child.push_back(temp);
-	E.child.push_back(temp);
-	E.child[0].data = 'H';
-	E.child[1].data = 'I';
-
-	TREENODE& I = E.child[1];
-	I.child.push_back(temp);
-	I.child.push_back(temp);
-	I.child.push_back(temp);
-	I.child[0].data = 'L';
-	I.child[1].data = 'M';
-	I.child[2].data = 'N';
-
-
-	cout << "先根遍历树A结果：" << endl;
-	RootFirst(A);
-	cout << endl << "后根遍历树A结果：" << endl;
-	RootAfter(A);
-	cout << endl;
-
-	cout << "层序遍历树A结果：" << endl;
-	LayerView(A);
-	cout << endl;
-
-	int num = 0;
-	cout << "求树A的大小结果：" << SizeOfTree(A, num) << endl;
-
-
-	cout << HeightOfTree(A) << endl;
-	cout << HeightOfTree(A.child[0]) << endl;
-	cout << HeightOfTree(C) << endl;
 
 
 	system("pause");
