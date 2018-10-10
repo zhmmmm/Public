@@ -393,9 +393,32 @@ public:
 	}
 };
 
-int main()
+struct coor
+{
+	int x;
+	int y;
+};
+
+class str
 {
 
+public:
+	static coor Coor;
+	str()
+	{
+
+	}
+	~str()
+	{
+
+	}
+};
+
+coor str::Coor = { 100,100};
+
+int main()
+{
+	std::cout << str::Coor.x << " " << str::Coor.y << std::endl;
 
 
 
