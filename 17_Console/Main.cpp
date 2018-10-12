@@ -393,32 +393,312 @@ public:
 	}
 };
 
-struct coor
+//二叉树节点结构体
+typedef struct stBinaryTreeNode
 {
-	int x;
-	int y;
-};
+	char data;
+	stBinaryTreeNode* father;
+	stBinaryTreeNode* left;
+	stBinaryTreeNode* right;
+}BINTREENODE, *LPBINTREENODE;
 
-class str
+template<typename DATA> class BinaryTree
 {
-
 public:
-	static coor Coor;
-	str()
+	LPBINTREENODE createTreeNode(char data)
 	{
-
+		LPBINTREENODE node = new BINTREENODE;
+		node->data = data;
+		node->father = node->left = node->right = NULL;
+		return node;
 	}
-	~str()
+	LPBINTREENODE cutTree(LPBINTREENODE node)
 	{
+		//做安全的判断
+		if (node == NULL)
+		{
+			return NULL;
+		}
+		if (node->father != NULL)
+		{
+			//如果是左孩子
+			if (node->father->left == node)
+			{
+				node->father->left = NULL;
+			}
+			else
+			{
+				node->father->right = NULL;
+			}
+			node->father = NULL;
+		}
+		return node;
+	}
+	LPBINTREENODE insertTree(LPBINTREENODE root, LPBINTREENODE node, bool insertleft = true)
+	{
+		if (root == NULL || node == NULL)
+			return NULL;
 
+		//将要插入的位置砍树操作
+
+		LPBINTREENODE beCutTreeNode = NULL;
+		if (insertleft)
+		{
+			beCutTreeNode = cutTree(root->left);
+			root->left = node;
+		}
+		else
+		{
+			beCutTreeNode = cutTree(root->right);
+			root->right = node;
+		}
+		node->father = root;
+		return beCutTreeNode;
+	}
+	void rootFirstPrint(LPBINTREENODE node)
+	{
+		if (node == NULL)
+			return;
+		cout << node->data << " ";
+		rootFirstPrint(node->left);
+		rootFirstPrint(node->right);
+	}
+	void rootAfterPrint(LPBINTREENODE node)
+	{
+		if (node == NULL)
+			return;
+		rootAfterPrint(node->left);
+		rootAfterPrint(node->right);
+		cout << node->data << " ";
+	}
+	void rootMiddlePrint(LPBINTREENODE node)
+	{
+		if (node == NULL)
+			return;
+		rootMiddlePrint(node->left);
+		cout << node->data << " ";
+		rootMiddlePrint(node->right);
+	}
+	void layerViewPrint(LPBINTREENODE node)
+	{
+		if (node == NULL)
+			return;
+
+		list<LPBINTREENODE> NodeDeque;
+		NodeDeque.push_back(node);
+
+		while (!NodeDeque.empty())
+		{
+			LPBINTREENODE tempNode = NodeDeque.front();
+			cout << tempNode->data << " ";
+			if (tempNode->left)
+			{
+				NodeDeque.push_back(tempNode->left);
+			}
+			if (tempNode->right)
+			{
+				NodeDeque.push_back(tempNode->right);
+			}
+			NodeDeque.pop_front();
+		}
+	}
+	void DeleteTree(LPBINTREENODE& root)
+	{
+		if (root == NULL)
+			return;
+
+		root = cutTree(root);
+
+		DeleteTree(root->left);
+		DeleteTree(root->right);
+		delete root;
+		root = NULL;
+	}
+	LPBINTREENODE CopyTree(LPBINTREENODE root)
+	{
+		if (root == NULL)
+			return NULL;
+
+		LPBINTREENODE node = createTreeNode(root->data);
+
+		node->left = CopyTree(root->left);
+		if (node->left)
+		{
+			node->left->father = node;
+		}
+		node->right = CopyTree(root->right);
+		if (node->right)
+		{
+			node->right->father = node;
+		}
+		return node;
 	}
 };
+template<typename Data> class MaxHeap_Int
+{
+public:
+	//构造(这里写的是将数组的数据在构造的时候就加入到堆中)
+	MaxHeap_Int(int len, int* Data)
+	{
+		mCapaCity = len + 1;
+		mData = new int[mCapaCity];
+		mSize = 0;
+		for (int i = 0; i < len; i++)
+		{
+			_PushData(Data[i]);
+		}
+	}
+	~MaxHeap_Int()
+	{
+		delete[] mData;
+		mData = NULL;
+		mSize = mCapaCity = 0;
+	}
+	//获取已经排好序的数据到数组
+	void GetSortData(int* Data)
+	{
+		int maxsize = mSize;
+		for (int i = 0; i < maxsize; i++)
+		{
+			Data[i] = _PopData();
+		}
+	}
+	void PrintHeapData()
+	{
+		if (mData)
+		{
+			for (int i = 0; i < mSize; i++)
+			{
+				cout << mData[i + 1] << " ";
+			}
+			cout << endl;
+		}
+	}
+protected:
+	//往堆中插入数据
+	void _PushData(int data)
+	{
+		//表示当前插入的数据是根节点
+		mData[mSize + 1] = data;
+		mSize++;
+		int curindex = mSize;
+		int fatherindex = curindex / 2;
 
-coor str::Coor = { 100,100};
+		while (fatherindex > 0 && mData[fatherindex] < mData[curindex])
+		{
+			int temp = mData[fatherindex];
+			mData[fatherindex] = mData[curindex];
+			mData[curindex] = temp;
+			curindex = fatherindex;
+			fatherindex = curindex / 2;
+		}
+	}
+	//从堆中弹出数据
+	int _PopData()
+	{
+		int podeddata = mData[1];
 
+		int nullindex = 1;//空出来的位置
+		int nextindex = nullindex * 2 + 1;//假设要交换的是右边的节点
+
+		while (nextindex <= mSize)
+		{
+			//如果左节点比有节点大
+			if (mData[nextindex - 1] > mData[nextindex])
+			{
+				nextindex--;//实际上要交换的位置应该是左节点
+			}
+
+			//交换节点的数据
+			int temp = mData[nullindex];
+			mData[nullindex] = mData[nextindex];
+			//重新计算空节点和下一个要交换的节点
+			nullindex = nextindex;
+			nextindex = nullindex * 2 + 1;
+		}
+
+		//拿最后一个节点的数据进行补位
+		mData[nullindex] = mData[mSize];
+
+
+		//调整补位以后的数据的优先级
+		while (nullindex > 1)
+		{
+			if (mData[nullindex / 2] < mData[nullindex])
+			{
+				int temp = mData[nullindex / 2];
+				mData[nullindex / 2] = mData[nullindex];
+				mData[nullindex] = temp;
+				nullindex /= 2;
+			}
+			else {
+				break;
+			}
+		}
+
+		mSize--;
+		return podeddata;
+	}
+private:
+	int mCapaCity;
+	int mSize;
+	int* mData;
+};
 int main()
 {
-	std::cout << str::Coor.x << " " << str::Coor.y << std::endl;
+	//BinaryTree<char> Obj;
+	//LPBINTREENODE A = Obj.createTreeNode('A');
+	//LPBINTREENODE B = Obj.createTreeNode('B');
+	//LPBINTREENODE C = Obj.createTreeNode('C');
+	//LPBINTREENODE D = Obj.createTreeNode('D');
+	//LPBINTREENODE E = Obj.createTreeNode('E');
+	//LPBINTREENODE F = Obj.createTreeNode('F');
+	//LPBINTREENODE G = Obj.createTreeNode('G');
+	//LPBINTREENODE H = Obj.createTreeNode('H');
+	//LPBINTREENODE I = Obj.createTreeNode('I');
+	//LPBINTREENODE J = Obj.createTreeNode('J');
+	//Obj.insertTree(A, B);
+	//Obj.insertTree(A, C, false);
+	//Obj.insertTree(B, D);
+	//Obj.insertTree(B, E, false);
+	//Obj.insertTree(E, G);
+	//Obj.insertTree(C, F);
+	//Obj.insertTree(F, H, false);
+	//Obj.insertTree(H, I);
+	//Obj.insertTree(H, J, false);
+	//cout << "先根遍历打印：" << endl;
+	//Obj.rootFirstPrint(A);
+	//cout << endl << "后根遍历打印：" << endl;
+	//Obj.rootAfterPrint(A);
+	//cout << endl << "中序遍历打印：" << endl;
+	//Obj.rootMiddlePrint(A);
+	//cout << endl << "层序遍历打印：" << endl;
+	//Obj.layerViewPrint(A);
+	//cout << endl;
+	//Obj.DeleteTree(B);
+	//cout << endl << "层序遍历打印：" << endl;
+	//Obj.layerViewPrint(A);
+	//cout << endl;
+	//cout << B << endl;
+	//LPBINTREENODE K = Obj.CopyTree(F);
+	//cout << endl << "层序遍历打印：" << endl;
+	//Obj.layerViewPrint(K);
+	//cout << endl;
+	//cout << K->father << endl;
+	////释放
+	//Obj.DeleteTree(A);
+	//Obj.DeleteTree(K);
+
+	//int arr[16] = { 4,7,9,0,8,6,12,34,21,3,5,17,18,10,4,2 };
+	//MaxHeap_Int<int> Obj(16,arr);
+	//Obj.PrintHeapData();
+	//int narr[16] = { 0 };
+	//Obj.GetSortData(narr);
+	//for (int i = 0; i < 16; i++)
+	//{
+	//	cout << narr[i] << " ";
+	//}
+	//cout << endl;
 
 
 
