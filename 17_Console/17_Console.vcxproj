@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="Function.h" />
     <ClInclude Include="Hash.h" />
     <ClInclude Include="MaxHeap.h" />
   </ItemGroup>

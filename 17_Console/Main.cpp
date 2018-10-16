@@ -1,4 +1,6 @@
 #include <iostream>
+#include <Windows.h>
+#include <conio.h>
 #include <vector>
 #include <list>
 #include "Hash.h"
@@ -366,9 +368,9 @@ public:
 };
 
 
+
 int main()
 {
-
 
 
 	system("pause");
