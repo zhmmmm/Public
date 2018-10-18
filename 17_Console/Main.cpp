@@ -2,12 +2,14 @@
 #include <cmath>
 #include <Windows.h>
 #include <conio.h>
+#include <map>
 #include <vector>
 #include <list>
 #include "Hash.h"
 #include "BinaryTree.h"
 #include "MaxHeap.h"
 #include "BinarySearchTree.h"
+#include "Sort.h"
 
 
 
@@ -99,103 +101,7 @@ bool operator < (const std::string& s1, const std::string& s2)
 	}
 	return false;
 }
-int hashfunc(const std::string& key)
-{
-	return (key[0] + key[key.length() - 1]);
-	//hash函数的原则：
-	//1、尽量简单
-	//2、结果尽量离散
-	//3、冲突尽量少
-	/*
-		Hash<std::string, int> aaa(256, hashfunc);
-	aaa.Insert("123", 123);
-	aaa.Insert("456", 456);
-	aaa.Insert("abc", 789);
-	aaa.Insert("def", 101112);
-	aaa.Insert("bbb", 131415);
-	aaa.Insert("xyz", 161718);
-	aaa.Insert("qwe", 192021);
-	aaa.Insert("ijk", 222324);
-	aaa["666"] = 999;
-
-
-	Hash<std::string, int>::LPAIR it = aaa.Find("123");
-	cout << "(" << it->Key.c_str() << "," << it->Data << ")" << endl;
-	cout << aaa["666"] << endl;
-	cout << aaa["bbb"] << endl;
-	*/
-}
-//==============================================
-//数结构
-typedef struct TreeNode
-{
-	char data;
-	std::vector<TreeNode> child;
-}TREENODE, *LPTREENODE;
-//先根遍历
-void RootFirst(TREENODE& t)
-{
-	cout << t.data << " ";
-	for (unsigned int i = 0; i < t.child.size(); i++)
-	{
-		RootFirst(t.child[i]);
-	}
-}
-//后根遍历
-void RootAfter(TREENODE& t)
-{
-	for (unsigned int i = 0; i < t.child.size(); i++)
-	{
-		RootAfter(t.child[i]);
-	}
-	cout << t.data << " ";
-}
-//层序遍历
-void LayerView(TREENODE& t)
-{
-	std::list<TREENODE> helplist;
-	//先将根节点压入队列
-	helplist.push_back(t);
-	//循环判断队列是否为空
-	while (!helplist.empty())
-	{
-		//取出队列第一个元素
-		TREENODE temp = helplist.front();
-		cout << temp.data << " ";
-		//将该元素的所有子节点依次加入到队列的尾部
-		for (unsigned int i = 0; i < temp.child.size(); i++)
-		{
-			helplist.push_back(temp.child[i]);
-		}
-		helplist.pop_front();
-	}
-}
-//求树的大小
-int SizeOfTree(TREENODE& t, int& num)
-{
-	num++;
-	for (unsigned int i = 0; i < t.child.size(); i++)
-	{
-		SizeOfTree(t.child[i], num);
-	}
-	return num;
-}
-//求树的高度
-int HeightOfTree(TREENODE& t, int deep = 0)
-{
-	int n = deep + 1;
-	int m = -1;
-	for (unsigned int i = 0; i < t.child.size(); i++)
-	{
-		m = HeightOfTree(t.child[i], deep + 1);
-		if (m > n)
-		{
-			n = m;
-		}
-	}
-	return n;
-}
-//===============================
+//===============================单向链表
 #define DATA_INT int
 typedef struct _node
 {
@@ -373,11 +279,16 @@ public:
 
 
 
+
 int main()
 {
+	int Arr[10] = {9,1,2,8,3,10,5,6,7,4};
+	int TempArr[10] = { 0 };
+	Sort<int*, int> SortObj;
 
 
 
+	std::cout << std::endl;
 	system("pause");
 	return 0;
 }

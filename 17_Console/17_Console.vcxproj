@@ -148,6 +148,7 @@
     <ClInclude Include="Hash.h" />
     <ClInclude Include="MaxHeap.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="Sort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
