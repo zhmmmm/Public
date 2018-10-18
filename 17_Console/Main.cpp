@@ -285,7 +285,8 @@ int main()
 	int Arr[10] = {9,1,2,8,3,10,5,6,7,4};
 	int TempArr[10] = { 0 };
 	Sort<int*, int> SortObj;
-
+	SortObj.ChoiceSort(Arr, 10);
+	SortObj.Print(Arr,10);
 
 
 	std::cout << std::endl;
