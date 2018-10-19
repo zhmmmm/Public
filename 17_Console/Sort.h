@@ -6,7 +6,7 @@ class Sort
 {
 
 public:
-	void Print(DATA Arr, LEN Len)
+	void Print(DATA Arr, const LEN Len)
 	{
 		for (int i = 0; i < Len; i++)
 		{
@@ -15,7 +15,7 @@ public:
 		std::cout << std::endl;
 	}
 	//冒泡排序
-	void BubbleSort(DATA Arr, LEN Len)
+	void BubbleSort(DATA Arr, const LEN Len)
 	{
 		for (int i = 0; i < Len; i++)
 		{
@@ -31,7 +31,7 @@ public:
 		}
 	}
 	//快速排序
-	void FastSort(DATA Arr, LEN StartIndex, LEN EndIndex)
+	void FastSort(DATA Arr,const LEN StartIndex,const LEN EndIndex)
 	{
 		int Key = Arr[StartIndex];
 		int Left = StartIndex;
@@ -49,7 +49,7 @@ public:
 		FastSort(Arr,Right + 1, EndIndex);
 	}
 	//插入排序
-	void InsertSort(DATA Arr, LEN Len)
+	void InsertSort(DATA Arr,const LEN Len)
 	{
 		int j = 0;
 		int TempData = 0;
@@ -66,7 +66,7 @@ public:
 		}
 	}
 	//折半排序
-	void BinSort(DATA Arr, LEN Len) //对int数组进行从小到大的排序   
+	void BinSort(DATA Arr,const LEN Len) //对int数组进行从小到大的排序   
 	{
 		for (int i = 1; i < Len; i++) //开始 以a[0]作为有序序列，从a[1]开始找到当前元素a[i]应该放置的位置   
 		{
@@ -87,7 +87,7 @@ public:
 		}
 	}
 	//选择排序
-	void ChoiceSort(DATA Arr, LEN Len)
+	void ChoiceSort(DATA Arr,const LEN Len)
 	{
 		for (int i = 0; i < Len; i++)
 		{
