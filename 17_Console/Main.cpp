@@ -71,28 +71,6 @@ void ordinaryAdd()
 	//std::cout << num << std::endl;
 }
 //=============================================
-int find_half(int* p, int len, int data)
-{
-	int Temp = 0;
-	int e = len - 1;
-	while (Temp <= e)
-	{
-		int TempLen = (Temp + e) / 2;
-		if (data < p[TempLen])
-		{
-			e = TempLen - 1;
-		}
-		else if (p[TempLen] < data)
-		{
-			Temp = TempLen + 1;
-		}
-		else
-		{
-			return TempLen;
-		}
-	}
-	return -1;
-}
 bool operator < (const std::string& s1, const std::string& s2)
 {
 	if (strcmp(s1.c_str(), s2.c_str()) < 0)
@@ -285,11 +263,10 @@ int main()
 	int Arr[10] = {9,1,2,8,3,10,5,6,7,4};
 	int TempArr[10] = { 0 };
 	Sort<int*, int> SortObj;
-	SortObj.ChoiceSort(Arr, 10);
+	SortObj.RadixSort(Arr, 10);
 	SortObj.Print(Arr,10);
 
 
-	std::cout << std::endl;
 	system("pause");
 	return 0;
 }

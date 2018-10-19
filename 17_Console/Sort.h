@@ -104,4 +104,54 @@ public:
 			Arr[K] = Temp;
 		}
 	}
+	//桶型排序
+	void RadixSort(DATA Arr, const LEN Len)
+	{
+		for (int n = 1; n <= 100; n *= 10)
+		{
+			int temp[10][100] = { 0 };
+			for (int i = 0; i < Len; i++)//先所有的数各位轮一遍，再是十位及百位
+			{
+				int m = (Arr[i] / n) % 10;
+				temp[m][i] = Arr[i];
+			}
+			int k = 0;
+			for (int i = 0; i < 10; i++)
+			{
+				for (int j = 0; j < Len; j++)
+				{
+					if (temp[i][j] != 0)
+					{
+						Arr[k] = temp[i][j];
+						k++;
+					}
+				}
+			}
+		}
+	}
+	//希尔排序
+	void ShellSort(DATA Arr, const LEN Len)
+	{
+		int i = 0;
+		int j = 0;
+		int k = 1;
+		int temp = 0;
+		int jmp = 0;
+		jmp = Len / 2;
+		while (jmp != 0)
+		{
+			for (i = jmp; i < Len; i++)
+			{
+				temp = Arr[i];
+				j = i - jmp;
+				while (temp < Arr[j] && j >= 0)
+				{
+					Arr[j + jmp] = Arr[j];
+					j = j - jmp;
+				}
+				Arr[jmp + j] = temp;
+			}
+			jmp = jmp / 2;
+		}
+	}
 };
