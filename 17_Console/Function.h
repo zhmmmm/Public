@@ -32,3 +32,25 @@
 //{
 //	//通过i->Y,i->X 作为左边来绘制
 //}
+void ___Number(int *Num,int *Number)
+{
+	int Add_10 = 10;
+	int i = 0;
+	int Arr[256] = { 0 };
+	int Arr_10 = 1;
+	while (true)
+	{
+		int Temp = (*Num) % Add_10;
+		Arr[i] = Temp / Arr_10;
+		(*Num) -= Temp;
+		Add_10 *= 10;
+		i++;
+		if ((*Num) == 0) { break; }
+		Arr_10 *= 10;
+	}
+	for (int j = 0; j < i; j++)
+	{
+		(*Number) += (Arr[j] * Arr_10);
+		Arr_10 /= 10;
+	}
+}

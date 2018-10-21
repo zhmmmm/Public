@@ -5,11 +5,14 @@
 #include <map>
 #include <vector>
 #include <list>
+#include <type_traits>
 #include "Hash.h"
 #include "BinaryTree.h"
 #include "MaxHeap.h"
 #include "BinarySearchTree.h"
 #include "Sort.h"
+#include "Function.h"
+
 
 #define __START__  {
 #define __END__       }
@@ -257,34 +260,14 @@ public:
 };
 
 
-
-
 int main()
 {
-	//int Arr[10] = {9,1,2,8,3,10,5,6,7,4};
-	//int TempArr[10] = { 0 };
-	//Sort<int*, int> SortObj;
-	//SortObj.RadixSort(Arr, 10);
-	//SortObj.Print(Arr,10);
+	int Num = 0;
+	int Number = 0;
+	std::cin >> Num;
+	___Number(&Num,&Number);
+	std::cout << Number << std::endl;
 
-	vector<int> Vec;
-
-	cout << "Vec Size = " << Vec.size() << endl;
-	for (int i = 0; i < 5; i++)
-		__START__
-		Vec.push_back(i);
-	__END__
-		cout << "Vec Push Size = " << Vec.size() << endl;
-	for (int i = 0; i < 5; i++)
-		__START__
-		cout << Vec[i] << endl;
-	__END__
-		vector<int>::iterator i = Vec.begin();
-	while (i != Vec.end())
-		__START__
-		cout << "µü´úÆ÷·ÃÎÊÔªËØ£º" << *i << endl;
-	i++;
-	__END__
 
 	system("pause");
 	return 0;
