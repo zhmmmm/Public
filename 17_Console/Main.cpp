@@ -73,31 +73,7 @@ void ordinaryAdd()
 
 int main()
 {
-	TiXmlDocument Doc;
-	TiXmlElement *Root = new TiXmlElement("Root");
-	TiXmlElement *Ele = new TiXmlElement("ELEMENTS");
-	TiXmlElement *Ele_0 = new TiXmlElement("Test");
 
-	Ele_0->SetAttribute("Name", "ÎÒ");
-	Ele->SetAttribute("Name", "ÕÅºÆÂü");
-	Ele->SetAttribute("Age", "20");
-
-
-	Root->LinkEndChild(Ele);
-	Root->LinkEndChild(Ele_0);
-	Doc.LinkEndChild(Root);
-	Doc.SaveFile("MyTest.txt");
-
-	//TiXmlDocument Doc("MyTest.txt");
-	//if (Doc.LoadFile())
-	//{
-	//	TiXmlElement *Root = Doc.FirstChildElement("Root");
-	//	for (TiXmlElement *Ele = Root->FirstChildElement("ELEMENTS"); Ele != NULL; Ele = Ele->NextSiblingElement())
-	//	{
-	//		std::cout << Ele->Attribute("Name")<<std::endl;
-	//		std::cout << Ele->GetText() << std::endl;
-	//	}
-	//}
 
 	system("pause");
 	return 0;
