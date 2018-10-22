@@ -1,8 +1,6 @@
 #include <iostream>
-#include <atlbase.h>
-//#include <float.h>
-//#include <winperf.h>
-//#include <afxtempl.h>  
+#include <tinyxml.h>
+
 /*
 #include <cmath>
 #include <Windows.h>
@@ -75,21 +73,7 @@ void ordinaryAdd()
 
 int main()
 {
-	//CString dwTotalPhys;
-	//CString dwTotalVirtual;
 
-	//   TODO:     Add   extra   initialization   here   
-	MEMORYSTATUS   Mem;
-	//   get   the   memory   status   
-	GlobalMemoryStatus(&Mem);
-
-	DWORD dwSize = (DWORD)Mem.dwTotalPhys / (1024 * 1024);
-	DWORD dwVirtSize = (DWORD)Mem.dwTotalVirtual / (1024 * 1024);
-
-	int Temp = 0;
-
-	//dwTotalPhys.Format(_T("物理内存:%ld MB"), dwSize);
-	//dwTotalVirtual.Format(_T("虚拟内存:%ld MB"), dwVirtSize);
 
 	system("pause");
 	return 0;
